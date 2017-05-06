@@ -269,7 +269,7 @@ func (this *BehaviorTree) Tick(target interface{}, blackboard *Blackboard) b3.St
 	/* CREATE A TICK OBJECT */
 	var tick = NewTick()
 	tick.debug = this.debug
-	tick.target = target
+	tick.Target = target
 	tick.Blackboard = blackboard
 	tick.tree = this
 

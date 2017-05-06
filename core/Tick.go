@@ -39,7 +39,7 @@ type Tick struct {
 	 * @property {Object} target
 	 * @readOnly
 	**/
-	target interface{}
+	Target interface{}
 	/**
 	 * The blackboard reference.
 	 * @property {b3.Blackboard} blackboard
@@ -80,7 +80,7 @@ func (this *Tick) Initialize() {
 	// set by BehaviorTree
 	this.tree = nil
 	this.debug = nil
-	this.target = nil
+	this.Target = nil
 	this.Blackboard = nil
 
 	// updated during the tick signal
