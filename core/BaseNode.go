@@ -3,8 +3,8 @@ package core
 import (
 	_ "fmt"
 
-	b3 "github.com/magicsea/behavior3go"
-	. "github.com/magicsea/behavior3go/config"
+	b3 "github.com/liguoqinjim/behavior3go"
+	. "github.com/liguoqinjim/behavior3go/config"
 )
 
 type IBaseWrapper interface {

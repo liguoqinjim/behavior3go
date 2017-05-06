@@ -1,8 +1,8 @@
 package composites
 
 import (
-	b3 "github.com/magicsea/behavior3go"
-	. "github.com/magicsea/behavior3go/core"
+	b3 "github.com/liguoqinjim/behavior3go"
+	. "github.com/liguoqinjim/behavior3go/core"
 )
 
 type MemSequence struct {
