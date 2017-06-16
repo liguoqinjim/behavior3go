@@ -29,75 +29,12 @@ import (
  * BT does not store the target, information about opened nodes or number of
  * times the tree was called). But because of this, you only need a single
  * tree instance to control multiple (maybe hundreds) objects.
- *
- * Manual construction of a Behavior Tree
- * --------------------------------------
- *
- *     var tree = new b3.BehaviorTree();
- *
- *     tree.root = new b3.Sequence({children:[
- *       new b3.Priority({children:[
- *         new MyCustomNode(),
- *         new MyCustomNode()
- *       ]}),
- *       ...
- *     ]});
- *
- *
- * Loading a Behavior Tree from data structure
- * -------------------------------------------
- *
- *     var tree = new b3.BehaviorTree();
- *
- *     tree.load({
- *       'title'       : 'Behavior Tree title'
- *       'description' : 'My description'
- *       'root'        : 'node-id-1'
- *       'nodes'       : {
- *         'node-id-1' : {
- *           'name'        : 'Priority', // this is the node type
- *           'title'       : 'Root Node',
- *           'description' : 'Description',
- *           'children'    : ['node-id-2', 'node-id-3'],
- *         },
- *         ...
- *       }
- *     })
- *
- *
- * @module b3
- * @class BehaviorTree
 **/
-type BehaviorTree struct {
-
-	/**
-	 * The tree id, must be unique. By default, created with `b3.createUUID`.
-	 * @property {String} id
-	 * @readOnly
-	**/
-	id string
-
-	/**
-	 * The tree title.
-	 * @property {String} title
-	 * @readonly
-	**/
-	title string
-
-	/**
-	 * Description of the tree.
-	 * @property {String} description
-	 * @readonly
-	**/
+type BehaviorTree struct { //这里很重要，也就是说，行为树只要有一个实例就可以了，就可以控制多个使用相同行为树的对象
+	id          string
+	title       string
 	description string
 
-	/**
-	 * A dictionary with (key-value) properties. Useful to define custom
-	 * variables in the visual editor.
-	 *
-	 * @property {Object} properties
-	 * @readonly
-	**/
 	properties map[string]interface{}
 
 	/**
@@ -121,11 +58,6 @@ func NewBeTree() *BehaviorTree {
 	return tree
 }
 
-/**
- * Initialization method.
- * @method Initialize
- * @construCtor
-**/
 func (this *BehaviorTree) Initialize() {
 	this.id = b3.CreateUUID()
 	this.title = "The behavior tree"
@@ -143,35 +75,7 @@ func (this *BehaviorTree) SetDebug(debug interface{}) {
 	this.debug = debug
 }
 
-/**
- * This method loads a Behavior Tree from a data structure, populating this
- * object with the provided data. Notice that, the data structure must
- * follow the format specified by Behavior3JS. Consult the guide to know
- * more about this format.
- *
- * You probably want to use custom nodes in your BTs, thus, you need to
- * provide the `names` object, in which this method can find the nodes by
- * `names[NODE_NAME]`. This variable can be a namespace or a dictionary,
- * as long as this method can find the node by its name, for example:
- *
- *     //json
- *     ...
- *     'node1': {
- *       'name': MyCustomNode,
- *       'title': ...
- *     }
- *     ...
- *
- *     //code
- *     var bt = new b3.BehaviorTree();
- *     bt.load(data, {'MyCustomNode':MyCustomNode})
- *
- *
- * @method load
- * @param {Object} data The data structure representing a Behavior Tree.
- * @param {Object} [names] A namespace or dict containing custom nodes.
-**/
-func (this *BehaviorTree) Load(data *config.BTTreeCfg, maps *b3.RegisterStructMaps, extMaps *b3.RegisterStructMaps) {
+func (this *BehaviorTree) Load(data *config.BTTreeCfg, maps *b3.RegisterStructMaps, extMaps *b3.RegisterStructMaps) { //This method loads a Behavior Tree from a data structure
 	this.title = data.Title             //|| this.title;
 	this.description = data.Description // || this.description;
 	this.properties = data.Properties   // || this.properties;
@@ -307,7 +211,6 @@ func (this *BehaviorTree) Print() {
 }
 
 func printNode(root IBaseNode, blk int) {
-
 	//fmt.Println("new node:", root.Name, " children:", len(root.Children), " child:", root.Child)
 	for i := 0; i < blk; i++ {
 		fmt.Print(" ") //缩进
@@ -333,5 +236,4 @@ func printNode(root IBaseNode, blk int) {
 			}
 		}
 	}
-
 }
