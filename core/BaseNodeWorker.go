@@ -9,7 +9,6 @@ import (
 )
 
 type IBaseWorker interface {
-
 	/**
 	 * Enter method, override this to use. It is called every time a node is
 	 * asked to execute, before the tick itself.
@@ -55,6 +54,7 @@ type IBaseWorker interface {
 	**/
 	OnExit(tick *Tick)
 }
+
 type BaseWorker struct {
 }
 

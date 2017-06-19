@@ -34,21 +34,11 @@ type BehaviorTree struct { //这里很重要，也就是说，行为树只要有
 	id          string
 	title       string
 	description string
+	properties  map[string]interface{}
 
-	properties map[string]interface{}
+	root IBaseNode // The reference to the root node. Must be an instance of `b3.BaseNode`.
 
-	/**
-	 * The reference to the root node. Must be an instance of `b3.BaseNode`.
-	 * @property {BaseNode} root
-	**/
-	root IBaseNode
-
-	/**
-	 * The reference to the debug instance.
-	 * @property {Object} debug
-	**/
-	debug interface{}
-
+	debug    interface{} //The reference to the debug instance.
 	dumpInfo *config.BTTreeCfg
 }
 
@@ -76,14 +66,13 @@ func (this *BehaviorTree) SetDebug(debug interface{}) {
 }
 
 func (this *BehaviorTree) Load(data *config.BTTreeCfg, maps *b3.RegisterStructMaps, extMaps *b3.RegisterStructMaps) { //This method loads a Behavior Tree from a data structure
-	this.title = data.Title             //|| this.title;
+	this.title = data.Title             // || this.title;
 	this.description = data.Description // || this.description;
 	this.properties = data.Properties   // || this.properties;
 	this.dumpInfo = data
 	nodes := make(map[string]IBaseNode)
 
 	// Create the node list (without connection between them)
-
 	for id, s := range data.Nodes {
 		spec := &s
 		var node IBaseNode
@@ -107,7 +96,7 @@ func (this *BehaviorTree) Load(data *config.BTTreeCfg, maps *b3.RegisterStructMa
 
 		node.Ctor()
 		node.Initialize(spec)
-		node.SetBaseNodeWorker(node.(IBaseWorker))
+		node.SetBaseNodeWorker(node.(IBaseWorker)) //node是interface，可以转到类型IBaseWorker
 		nodes[id] = node
 	}
 
@@ -210,7 +199,7 @@ func (this *BehaviorTree) Print() {
 	printNode(this.root, 0)
 }
 
-func printNode(root IBaseNode, blk int) {
+func printNode(root IBaseNode, blk int) { //打印树
 	//fmt.Println("new node:", root.Name, " children:", len(root.Children), " child:", root.Child)
 	for i := 0; i < blk; i++ {
 		fmt.Print(" ") //缩进

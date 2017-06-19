@@ -6,8 +6,7 @@ import (
 	"io/ioutil"
 )
 
-//编辑器地址@http://editor.behavior3.com/#/editor
-//节点json类型
+//树的节点类型
 type BTNodeCfg struct {
 	Id          string                 `json:"id"`
 	Name        string                 `json:"name"`
@@ -72,7 +71,6 @@ type BTTreeCfg struct {
 
 //加载
 func LoadTreeCfg(path string) (*BTTreeCfg, bool) {
-
 	var tree BTTreeCfg
 	file, err := ioutil.ReadFile(path)
 	if err != nil {

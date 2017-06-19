@@ -27,27 +27,6 @@ type IBaseNode interface {
 	SetBaseNodeWorker(worker IBaseWorker)
 }
 
-/**
- * The BaseNode class is used as super class to all nodes in BehaviorJS. It
- * comprises all common variables and methods that a node must have to
- * execute.
- *
- * **IMPORTANT:** Do not inherit from this class, use `b3.Composite`,
- * `b3.Decorator`, `b3.Action` or `b3.Condition`, instead.
- *
- * The attributes are specially designed to serialization of the node in a
- * JSON format. In special, the `parameters` attribute can be set into the
- * visual editor (thus, in the JSON file), and it will be used as parameter
- * on the node initialization at `BehaviorTree.load`.
- *
- * BaseNode also provide 5 callback methods, which the node implementations
- * can override. They are `enter`, `open`, `tick`, `close` and `exit`. See
- * their documentation to know more. These callbacks are called inside the
- * `_execute` method, which is called in the tree traversal.
- *
- * @module b3
- * @class BaseNode
-**/
 type BaseNode struct {
 	IBaseWorker
 	/**
@@ -150,7 +129,6 @@ func (this *BaseNode) Initialize(params *BTNodeCfg) {
 	this.title = params.Title             //|| node.title;
 	this.description = params.Description // || node.description;
 	this.properties = params.Properties   //|| node.properties;
-
 }
 
 func (this *BaseNode) GetCategory() string {
