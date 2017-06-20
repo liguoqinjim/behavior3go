@@ -1,6 +1,7 @@
 package actions
 
 import (
+	"fmt"
 	b3 "github.com/liguoqinjim/behavior3go"
 	. "github.com/liguoqinjim/behavior3go/config"
 	. "github.com/liguoqinjim/behavior3go/core"
@@ -17,6 +18,6 @@ func (this *Log) Initialize(setting *BTNodeCfg) {
 }
 
 func (this *Log) OnTick(tick *Tick) b3.Status {
-
+	fmt.Println("log", this.info)
 	return b3.SUCCESS
 }
